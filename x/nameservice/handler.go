@@ -10,6 +10,8 @@ import (
 func NewHandler(keeper Keeper) sdk.Handler {
 	return func(ctx sdk.Context, msg sdk.Msg) sdk.Result {
 		switch msg := msg.(type) {
+		case MsgFaucet:
+			return handleMsgFaucet(ctx, keeper, msg)
 		case MsgSetName:
 			return handleMsgSetName(ctx, keeper, msg)
 		case MsgBuyName:
@@ -19,6 +21,14 @@ func NewHandler(keeper Keeper) sdk.Handler {
 			return sdk.ErrUnknownRequest(errMsg).Result()
 		}
 	}
+}
+
+func handleMsgFaucet(ctx sdk.Context, keeper Keeper, msg MsgFaucet) sdk.Result {
+	_, err := keeper.coinKeeper.AddCoins(ctx, msg.Receiver, msg.Amount)
+	if err != nil {
+		return sdk.ErrInvalidCoins("Error while assigning faucet").Result()
+	}
+	return sdk.Result{}
 }
 
 // Handle a message to set name

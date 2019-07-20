@@ -49,6 +49,45 @@ func (msg MsgSetName) GetSigners() []sdk.AccAddress {
 	return []sdk.AccAddress{msg.Owner}
 }
 
+type MsgFaucet struct {
+	Amount   sdk.Coins      `json:"amount"`
+	Receiver sdk.AccAddress `json:"receiver"`
+}
+
+func NewMsgFaucet(amount sdk.Coins, receiver sdk.AccAddress) MsgFaucet {
+	return MsgFaucet{
+		Amount: amount,
+		Receiver: receiver,
+	}
+}
+
+// Route should return the name of the module
+func (msg MsgFaucet) Route() string { return RouterKey }
+
+// Type should return the action
+func (msg MsgFaucet) Type() string { return "faucet" }
+
+// ValidateBasic runs stateless checks on the message
+func (msg MsgFaucet) ValidateBasic() sdk.Error {
+	if msg.Receiver.Empty() {
+		return sdk.ErrInvalidAddress(msg.Receiver.String())
+	}
+	if !msg.Amount.IsAllPositive() {
+		return sdk.ErrInsufficientCoins("Amounts must be positive")
+	}
+	return nil
+}
+
+// GetSignBytes encodes the message for signing
+func (msg MsgFaucet) GetSignBytes() []byte {
+	return sdk.MustSortJSON(ModuleCdc.MustMarshalJSON(msg))
+}
+
+// GetSigners defines whose signature is required
+func (msg MsgFaucet) GetSigners() []sdk.AccAddress {
+	return []sdk.AccAddress{msg.Receiver}
+}
+
 // MsgBuyName defines the BuyName message
 type MsgBuyName struct {
 	Name  string         `json:"name"`

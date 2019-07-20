@@ -22,6 +22,7 @@ var (
 type (
 	MsgSetName      = types.MsgSetName
 	MsgBuyName      = types.MsgBuyName
+	MsgFaucet		= types.MsgFaucet
 	QueryResResolve = types.QueryResResolve
 	QueryResNames   = types.QueryResNames
 	Whois           = types.Whois
