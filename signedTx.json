@@ -1,0 +1,39 @@
+{
+  "type": "auth/StdTx",
+  "value": {
+    "msg": [
+      {
+        "type": "cosmos-sdk/MsgSend",
+        "value": {
+          "from_address": "cosmos129mjpx9c2hchkjf2lmrmt34v0qk0qf3g3f7g2y",
+          "to_address": "cosmos1nx982k7n0tcuy06gzyhse3sj9c2yshp9aawanp",
+          "amount": [
+            {
+              "denom": "crt",
+              "amount": "100"
+            }
+          ]
+        }
+      }
+    ],
+    "fee": {
+      "amount": [
+        {
+          "denom": "crt",
+          "amount": "10"
+        }
+      ],
+      "gas": "200000"
+    },
+    "signatures": [
+      {
+        "pub_key": {
+          "type": "tendermint/PubKeySecp256k1",
+          "value": "AqQEKRgLcmX+5xv/7XlyGqShX+9qyESn/B5S5ngVl+9O"
+        },
+        "signature": "d22iR4N78oe7Vy2/+Zr/7o2OMjqRUgTIQxXyzsqHpWdI5Gfpi9R5o6IzbIX3BytmMbFoaeyqkpcI/gPtOu8HEQ=="
+      }
+    ],
+    "memo": "Sent via Cosmos Voyager 🚀"
+  }
+}

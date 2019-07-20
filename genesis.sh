@@ -2,20 +2,24 @@
 
 ## get node_name as first input parameter
 read -p "enter node_name: " node_name
-nsd init ${node_name} --chain-id charitychain
+csd init ${node_name} --chain-id charitychain
 
-nscli keys add jack
+cscli keys add jack
 
-nscli keys add alice
+cscli keys add alice
 
-nsd add-genesis-account $(nscli keys show jack -a) 1000crt,100000000stake
-nsd add-genesis-account $(nscli keys show alice -a) 1000crt,100000000stake
+csd add-genesis-account $(cscli keys show jack -a) 10000crt,100000000stake
+csd add-genesis-account $(cscli keys show alice -a) 10000crt,100000000stake
 
-nscli config chain-id charitychain
-nscli config output json
-nscli config indent true
-nscli config trust-node true
+cscli config chain-id charitychain
+cscli config output json
+cscli config indent true
+cscli config trust-node true
 
-nsd gentx --name jack <or your key_name>
+csd gentx --name jack
 
-nsd collect-gentxs
+csd collect-gentxs
+
+csd validate-genesis
+
+curl -X POST -s http://localhost:1317/bank/accounts/cosmos1l8a598tmyx8u8y7yztkacl5n7jvkdx46rs3vkt/transfers --data-binary '{ "base_req": { "from": "'$(nscli keys show jack -a)'", "memo": "Sent via Cosmos Voyager 🚀", "chain_id": "charitychain", "account_number": "0", "sequence": "0", "gas": "200000", "gas_adjustment": "1.2", "fees": [ { "denom": "crt", "amount": "10" } ], "simulate": false }, "amount": [ { "denom": "crt", "amount": "100" } ] }' > unsignedTx.json

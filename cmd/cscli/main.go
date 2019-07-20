@@ -21,7 +21,7 @@ import (
 
 const (
 	storeAcc = "acc"
-	storeNS  = "nameservice"
+	storeNS  = "charityservice"
 )
 
 func main() {
@@ -37,8 +37,8 @@ func main() {
 	config.Seal()
 
 	rootCmd := &cobra.Command{
-		Use:   "nscli",
-		Short: "nameservice Client",
+		Use:   "cscli",
+		Short: "charityservice Client",
 	}
 
 	// Add --chain-id to persistent flags and mark it required

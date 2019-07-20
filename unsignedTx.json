@@ -1,0 +1,1 @@
+{"type":"auth/StdTx","value":{"msg":[{"type":"cosmos-sdk/MsgSend","value":{"from_address":"cosmos129mjpx9c2hchkjf2lmrmt34v0qk0qf3g3f7g2y","to_address":"cosmos1nx982k7n0tcuy06gzyhse3sj9c2yshp9aawanp","amount":[{"denom":"crt","amount":"100"}]}}],"fee":{"amount":[{"denom":"crt","amount":"10"}],"gas":"200000"},"signatures":null,"memo":"Sent via Cosmos Voyager 🚀"}}
