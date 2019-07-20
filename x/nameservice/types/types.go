@@ -8,7 +8,7 @@ import (
 )
 
 // Initial Starting Price for a name that was never previously owned
-var MinNamePrice = sdk.Coins{sdk.NewInt64Coin("nametoken", 1)}
+var MinNamePrice = sdk.Coins{sdk.NewInt64Coin("crt", 1)}
 
 // Whois is a struct that contains all the metadata of a name
 type Whois struct {
@@ -29,4 +29,19 @@ func (w Whois) String() string {
 	return strings.TrimSpace(fmt.Sprintf(`Owner: %s
 Value: %s
 Price: %s`, w.Owner, w.Value, w.Price))
+}
+
+type Volunteer struct {
+	Name string         `json:"name"`
+	Account sdk.AccAddress `json:"account"`
+}
+
+func NewVolunteer() Volunteer {
+	return Volunteer{
+	}
+}
+
+func (w Volunteer) String() string {
+	return strings.TrimSpace(fmt.Sprintf(`Name: %s
+Account: %s`, w.Name, w.Account))
 }

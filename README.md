@@ -1,6 +1,4 @@
-# Inter-Charity Blockchain Network on COSMOS
-
-This repository contains the source code of the nameservice tutorial.
+# Inter-Charity Blockchain Network on COSMOS.
 
 ## Create Genesis File
 
@@ -11,10 +9,10 @@ nscli keys add jack
 
 nscli keys add alice
 
-nsd add-genesis-account $(nscli keys show jack -a) 1000nametoken,100000000stake
-nsd add-genesis-account $(nscli keys show alice -a) 1000nametoken,100000000stake
+nsd add-genesis-account $(nscli keys show jack -a) 1000crt,100000000stake
+nsd add-genesis-account $(nscli keys show alice -a) 1000crt,100000000stake
 
-nscli config chain-id namechain
+nscli config chain-id charitychain
 nscli config output json
 nscli config indent true
 nscli config trust-node true

@@ -14,6 +14,7 @@ var (
 	NewMsgBuyName = types.NewMsgBuyName
 	NewMsgSetName = types.NewMsgSetName
 	NewWhois      = types.NewWhois
+	NewVolunteer  = types.NewVolunteer
 	ModuleCdc     = types.ModuleCdc
 	RegisterCodec = types.RegisterCodec
 )
@@ -24,4 +25,5 @@ type (
 	QueryResResolve = types.QueryResResolve
 	QueryResNames   = types.QueryResNames
 	Whois           = types.Whois
+	Volunteer		= types.Volunteer
 )
