@@ -52,12 +52,14 @@ func (msg MsgSetName) GetSigners() []sdk.AccAddress {
 type MsgFaucet struct {
 	Amount   sdk.Coins      `json:"amount"`
 	Receiver sdk.AccAddress `json:"receiver"`
+	Issuer   sdk.AccAddress `json:"issuer"`
 }
 
-func NewMsgFaucet(amount sdk.Coins, receiver sdk.AccAddress) MsgFaucet {
+func NewMsgFaucet(amount sdk.Coins, receiver sdk.AccAddress, issuer sdk.AccAddress) MsgFaucet {
 	return MsgFaucet{
-		Amount: amount,
+		Amount:   amount,
 		Receiver: receiver,
+		Issuer:   issuer,
 	}
 }
 
@@ -85,7 +87,7 @@ func (msg MsgFaucet) GetSignBytes() []byte {
 
 // GetSigners defines whose signature is required
 func (msg MsgFaucet) GetSigners() []sdk.AccAddress {
-	return []sdk.AccAddress{msg.Receiver}
+	return []sdk.AccAddress{msg.Issuer}
 }
 
 // MsgBuyName defines the BuyName message

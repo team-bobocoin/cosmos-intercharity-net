@@ -95,9 +95,9 @@ func GetCmdSetName(cdc *codec.Codec) *cobra.Command {
 // GetCmdSetName is the CLI command for sending a SetName transaction
 func GetCmdFaucet(cdc *codec.Codec) *cobra.Command {
 	return &cobra.Command{
-		Use:   "faucet [amount]",
+		Use:   "faucet [amount] [receiver]",
 		Short: "give faucet to the account with any amount",
-		Args:  cobra.ExactArgs(1),
+		Args:  cobra.ExactArgs(2),
 		RunE: func(cmd *cobra.Command, args []string) error {
 			cliCtx := context.NewCLIContext().WithCodec(cdc).WithAccountDecoder(cdc)
 
@@ -112,7 +112,12 @@ func GetCmdFaucet(cdc *codec.Codec) *cobra.Command {
 				return err
 			}
 
-			msg := types.NewMsgFaucet(coins, cliCtx.GetFromAddress())
+			addr, err := sdk.AccAddressFromBech32(args[1])
+			if err != nil {
+				return err
+			}
+
+			msg := types.NewMsgFaucet(coins, addr, cliCtx.GetFromAddress())
 			err = msg.ValidateBasic()
 			if err != nil {
 				return err

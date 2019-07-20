@@ -123,6 +123,7 @@ type faucetReq struct {
 	BaseReq  rest.BaseReq `json:"base_req"`
 	Amount   string       `json:"amount"`
 	Receiver string       `json:"receiver"`
+	Issuer   string       `json:"issuer"`
 }
 
 func faucetHandler(cliCtx context.CLIContext) http.HandlerFunc {
@@ -139,7 +140,13 @@ func faucetHandler(cliCtx context.CLIContext) http.HandlerFunc {
 			return
 		}
 
-		addr, err := sdk.AccAddressFromBech32(req.Receiver)
+		addrReceiver, err := sdk.AccAddressFromBech32(req.Receiver)
+		if err != nil {
+			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
+			return
+		}
+
+		addrIssuer, err := sdk.AccAddressFromBech32(req.Issuer)
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())
 			return
@@ -152,7 +159,7 @@ func faucetHandler(cliCtx context.CLIContext) http.HandlerFunc {
 		}
 
 		// create the message
-		msg := types.NewMsgFaucet(coins, addr)
+		msg := types.NewMsgFaucet(coins, addrReceiver, addrIssuer)
 		err = msg.ValidateBasic()
 		if err != nil {
 			rest.WriteErrorResponse(w, http.StatusBadRequest, err.Error())

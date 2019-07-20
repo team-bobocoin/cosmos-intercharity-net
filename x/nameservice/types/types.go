@@ -33,34 +33,37 @@ Price: %s`, w.Owner, w.Value, w.Price))
 }
 
 type Transaction struct {
-	Timestamp time.Time         `json:"timestamp"`
+	Timestamp time.Time      `json:"timestamp"`
 	Amount    sdk.Coins      `json:"amount"`
 	From      sdk.AccAddress `json:"from"`
 	To        sdk.AccAddress `json:"to"`
+	Item      string         `json:"item"`
 }
 
-func NewTransaction(from sdk.AccAddress, to sdk.AccAddress, amount sdk.Coins) Transaction {
+func NewTransaction(from sdk.AccAddress, to sdk.AccAddress, amount sdk.Coins, item string) Transaction {
 	return Transaction{
-		From: from,
-		To: to,
-		Amount: amount,
+		From:      from,
+		To:        to,
+		Amount:    amount,
 		Timestamp: time.Now(),
+		Item: item,
 	}
 }
 
-type Volunteer struct {
-	Account      sdk.AccAddress `json:"account"`
-	Transactions []*Transaction `json:"transactions"`
+type Member struct {
+	Account        sdk.AccAddress `json:"account"`
+	ReceiveHistory []*Transaction `json:"receive_history"`
+	SendHistory    []*Transaction `json:"send_history"`
 }
 
-func NewVolunteer(account sdk.AccAddress) Volunteer {
-	return Volunteer{
-		Account: account,
-		Transactions: make([]*Transaction, 0),
+func NewMember(account sdk.AccAddress) Member {
+	return Member{
+		Account:        account,
+		ReceiveHistory: make([]*Transaction, 0),
+		SendHistory:    make([]*Transaction, 0),
 	}
 }
 
-func (w Volunteer) String() string {
-	return strings.TrimSpace(fmt.Sprintf(`Name: %s
-Account: %s`, w.Account, w.Transactions))
+func (w Member) String() string {
+	return strings.TrimSpace(fmt.Sprintf(`Account: %s`, w.Account))
 }
