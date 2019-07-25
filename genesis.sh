@@ -2,6 +2,7 @@
 
 ## get node_name as first input parameter
 read -p "enter node_name: " node_name
+
 csd init ${node_name} --chain-id charitychain
 
 cscli keys add jack
@@ -22,4 +23,4 @@ csd collect-gentxs
 
 csd validate-genesis
 
-curl -X POST -s http://localhost:1317/bank/accounts/cosmos1l8a598tmyx8u8y7yztkacl5n7jvkdx46rs3vkt/transfers --data-binary '{ "base_req": { "from": "'$(nscli keys show jack -a)'", "memo": "Sent via Cosmos Voyager 🚀", "chain_id": "charitychain", "account_number": "0", "sequence": "0", "gas": "200000", "gas_adjustment": "1.2", "fees": [ { "denom": "crt", "amount": "10" } ], "simulate": false }, "amount": [ { "denom": "crt", "amount": "100" } ] }' > unsignedTx.json
+
